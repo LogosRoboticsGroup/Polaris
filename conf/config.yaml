@@ -1,0 +1,34 @@
+defaults:
+  - datamodule: av2_stream  # av2 for 'Polaris', av2_stream for 'Polaris+RealMotion'
+  - model: stream_model_forecast  # model_forecast for 'Polaris', stream_model_forecast for 'Polaris+RealMotion'
+
+hydra:
+  run:
+    dir: outputs/${output}/${now:%Y%m%d-%H%M%S}
+
+seed: 2024
+monitor: val_minFDE6
+save_top_k: 10
+
+data_root:
+checkpoint:
+pretrained_weights:
+output: change_${datamodule.name}_${datamodule.phase}_${model.name}_${model.phase}
+
+num_workers: 4
+gpus: 8  # when test, only use 1 gpu
+sync_bn: true
+batch_size: 3
+epochs: 60
+warmup_epochs: 10
+
+lr: 0.001  
+weight_decay: 1e-2  
+gradient_clip_val: 5
+gradient_clip_algorithm: norm
+
+limit_train_batches:
+limit_val_batches:
+limit_test_batches:
+log_model: all
+test: false  # false for val, true for test
