@@ -13,6 +13,9 @@ Trajectory prediction and planning in autonomous driving are highly challenging 
   <img src="assets/main.png"/>
 </div><br/>
 
+## Notice
+- This branch is the original version of Polaris. We have provided a version of Polaris without Mamba in the [wo_mamba](https://github.com/LogosRoboticsGroup/Polaris/tree/wo_mamba) branch.
+
 ## Install the environment
 ```
 # Set up a new virtual environment
@@ -28,15 +31,13 @@ pip install av2==0.2.1
 pip install tensorboard
 pip install torch-scatter -f https://data.pyg.org/whl/torch-2.1.1+cu118.html
 pip install protobuf==3.20.3
-```
+pip install numpy==1.26.3
 
-### Install Mamba
-- We follow the settings outlined in [VideoMamba](https://github.com/OpenGVLab/VideoMamba).
-```
-git clone git@github.com:OpenGVLab/VideoMamba.git
-cd VideoMamba
-pip install -e causal-conv1d
-pip install -e mamba
+# Install Mamba, we follow the settings outlined in [VideoMamba](https://github.com/OpenGVLab/VideoMamba).
+cd third_party/causal-conv1d
+pip install . --no-build-isolation
+cd third_party/mamba
+pip install . --no-build-isolation
 ```
 
 ## Prepare the data
@@ -85,6 +86,12 @@ python ensemble.py
 # Test for submission
 python eval.py gpus=1 test=true
 ```
+
+## Results and checkpoints
+
+| Models | minADE1 | minFDE1 | minADE6 | minFDE6 |
+| :- | :-: | :-: | :-: | :-: |
+| [Polaris](https://drive.google.com/file/d/1TtmAe9oA_b1Sw8q0YQCrZYnariw-Ybbe/view?usp=sharing) |  1.54  |  3.81  |  0.62  |  1.17  |
 
 ## BibTeX
 ```bibtex

@@ -18,7 +18,7 @@ output: change_${datamodule.name}_${datamodule.phase}_${model.name}_${model.phas
 num_workers: 4
 gpus: 8  # when test, only use 1 gpu
 sync_bn: true
-batch_size: 3
+batch_size: 6
 epochs: 60
 warmup_epochs: 10
 
